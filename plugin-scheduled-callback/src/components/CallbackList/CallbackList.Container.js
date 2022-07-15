@@ -10,9 +10,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     getCallbacks: bindActionCreators(Actions.getCallbacks, dispatch),
-   // addCallback: bindActionCreators(Actions.addCallback, dispatch),
-   deleteCallback: bindActionCreators(Actions.deleteCallback, dispatch),
-   // updateCallback: bindActionCreators(Actions.updateCallback, dispatch),
+    deleteCallback: bindActionCreators(Actions.deleteCallback, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CallbackList);

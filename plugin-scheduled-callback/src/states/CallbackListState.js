@@ -13,7 +13,6 @@ const initialState = {
 };
 
 export class Actions {
-  // static dismissBar = () => ({ type: ACTION_DISMISS_BAR });
 
   static updateCallback = (callback) => ({
     type: CALLBACK_ACTIONS.UPDATE_CALLBACK,
@@ -23,8 +22,6 @@ export class Actions {
   static addCallback = (callback) => {
     
   try {
-  // const resp = addScheduledCallback(callback);
-   
     return {
     type: CALLBACK_ACTIONS.ADD_CALLBACK,
     payload: callback
@@ -75,13 +72,6 @@ export function reduce(state = initialState, action) {
       ...state,
       callbacks: [...state.callbacks, action.payload],
     };
-
-    // case `${CALLBACK_ACTIONS.ADD_CALLBACK}_FULFILLED`:
-
-    //   return {
-    //     ...state,
-    //     callbacks: [...state.callbacks, action.payload],
-    //   };
 
     case CALLBACK_ACTIONS.GET_CALLBACKS:
       return payload;

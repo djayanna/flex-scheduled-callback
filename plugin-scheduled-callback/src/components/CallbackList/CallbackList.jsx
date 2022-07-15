@@ -29,22 +29,13 @@ class CallbackList extends React.Component {
 
   constructor(props) {
     super(props);
-     //let list = await getScheduledCallback(null,null);
 
     this.state = {
       selectedCallback: undefined,
-      // sort: { name: "asc" },
-      // filters: { team: "", skills: "" },
-     // callBackList: undefined
     }
   }
 
   componentDidMount() {
-    // getScheduledCallback(manager,null)
-    //   .then(json => {
-    //     this.setState({ callBackList: json });
-    //   });
-
     this.props.getCallbacks();
   }
 

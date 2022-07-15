@@ -9,7 +9,6 @@ const mapStateToProps = () => ({
 
 const mapDispatchToProps = (dispatch) => ({
    addCallback: bindActionCreators(Actions.addCallback, dispatch),
-  // deleteCallback: bindActionCreators(Actions.deleteCallback, dispatch),
    updateCallback: bindActionCreators(Actions.updateCallback, dispatch),
 });
 

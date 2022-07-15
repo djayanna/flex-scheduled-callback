@@ -6,8 +6,6 @@ import * as listeners from "./listeners";
 import CallbackComponent from "./components/Callback/Callback";
 import CallbackList from "./components/CallbackList/CallbackList.Container";
 import CallbackSchedulerLink from "./components/CallbackList/CallbackSchedulerLink";
-import { acceptCallbackTask } from "./helpers";
-import { TaskHelper } from "@twilio/flex-ui";
 const PLUGIN_NAME = "CallbackPlugin";
 
 export default class CallbackPlugin extends FlexPlugin {
@@ -39,18 +37,6 @@ export default class CallbackPlugin extends FlexPlugin {
       </View>
     );
 
-    // manager.workerClient.on("reservationCreated", (reservation) => {
-    //   //const task = TaskHelper.getTaskByTaskSid(reservation.sid);
-
-    //   // Only auto accept if it's not an outbound call from Flex
-    //   //if (!TaskHelper.isInitialOutboundAttemptTask(task)) {
-    //   flex.Actions.invokeAction("AcceptTask", {
-    //     sid: reservation.sid,
-    //     isAutoAccept: true,
-    //   });
-    //   //}
-    // });
-
     flex.TaskInfoPanel.Content.replace(
       <CallbackComponent key="task-info-callback" manager={manager} />,
       {
@@ -67,51 +53,9 @@ export default class CallbackPlugin extends FlexPlugin {
       if: (props) => props.task.attributes.callback,
     });
 
-    // flex.Actions.addListener('beforeWrapupTask', async (payload, abort) => {
-    //   console.log("wrap up -- start outbound ...", payload);
-    //   const { task } = payload;
-    //   if (task.attributes.callback) {
-    //     let number = task.attributes.callback_number;
-    //    // flex.Actions.invokeAction("StartOutboundCall", { destination: number });
-    //   }
-    // });
-
     flex.Actions.replaceAction("AcceptTask", async (payload, original) => {
       if (payload.task.attributes.callback) {
-        // let taskAttributes = {
-        //   workspaceSid: "WS36c83272d50eeb1681e5e6a8fdea7560",
-        //   taskSid: payload.task.taskSid,
-        //   sid: payload.sid,
-        // };
-
-        // // accept and complete reservation
-        // await acceptCallbackTask(taskAttributes);
-
-        // if (payload.task.attributes.callback?.autoDial) {
-        //   const number = payload.task.attributes.callback.phoneNumber;
-         
-        //   const callback_id = payload.task.attributes.callback.id;
-
-        //   let count = 0;
-        //   while (TaskHelper.isLiveCall(payload.task) && count <= 10) {
-        //     await new Promise((r) => setTimeout(r, 200));
-        //     count += 1;
-        //   }
-
-        //   if (count <= 10) {
-        //     // start bound call.
-        //     util.startOutboundCall(number, {
-        //       type: "outbound_callback",
-        //       callbackTaskSid: task.sid,
-        //       callback_id,
-        //     });
-        //   } else {
-        //     console.error(
-        //       "unable to start outbound call for callback task",
-        //       payload.task
-        //     );
-        //   }
-        // }
+        // no op
       } else {
         original(payload);
       }

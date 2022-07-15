@@ -68,37 +68,11 @@ const Callback = (props) => {
           variant='contained'
           color='primary'
           onClick={e => util.startOutboundCall(props.task.attributes.callback.phoneNumber, { type: "outbound_callback", callbackTaskSid: props.task.sid, callback_id: props.task.attributes.callback.id })}
-        //   disabled={
-        //       "ui_plugin" in props.task.attributes &&
-        //       "cbCallButtonAccessibility" in props.task.attributes.ui_plugin &&
-        //       props.task.attributes?.autoLaunchCallback != "1" &&
-        //       (
-        //         !("FlexCallType" in props.task.attributes) ||
-        //         props.task.attributes?.FlexCallType !== "callback"
-        //       )
-        //     ?
-        //       this.props.task.attributes.ui_plugin.cbCallButtonAccessibility
-        //     :
-        //       true
-        //   }
         >
            Call ( {props.task.attributes.callback.phoneNumber} )
         </Button> }
-        {/* Keeping this here in case requeue functionality is desired in the future
-
-        <p style={styles.textCenter}>Not answering? Requeue to try later.</p>
-        <Button
-          style={styles.cbButton}
-          variant='outlined'
-          color='primary'
-          onClick={e => this.startTransfer()}
-          disabled={count < 3 ? false : true}
-        >
-          Requeue Callback ( {this.props.task.attributes.placeCallRetry} of 3 )
-        </Button> */}
         <p>&nbsp;</p>
       </span>
-    // </CustomTaskListComponentStyles>
   );
 };
 

@@ -10,7 +10,6 @@
     "@twilio-paste/icons": "^8.0.2",
     "@twilio/flex-plugin-scripts": "5.0.6",
     "google-libphonenumber": "^3.2.28",
-    "moment": "^2.29.3",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-emotion": "9.2.12",

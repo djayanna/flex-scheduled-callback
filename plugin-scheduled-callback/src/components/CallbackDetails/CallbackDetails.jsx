@@ -10,9 +10,8 @@ import {
 import { Button } from "@twilio/flex-ui-core";
 import { DatePicker, formatReturnDate } from "@twilio-paste/core/date-picker";
 import { TimePicker } from "@twilio-paste/core/time-picker";
-import {PhoneNumberUtil, PhoneNumberFormat} from "google-libphonenumber";
-import {updateScheduledCallback, addScheduledCallback} from '../../helpers'
-import moment from "moment";
+import { PhoneNumberUtil, PhoneNumberFormat } from "google-libphonenumber";
+import { updateScheduledCallback, addScheduledCallback } from "../../helpers";
 
 import {
   TableHead,
@@ -33,7 +32,6 @@ import {
   StyledTextField,
   ButtonsContainer,
 } from "./CallbackDetails.styles";
-
 
 const INITIAL_STATE = {
   worker_sid: "",
@@ -61,7 +59,7 @@ class CallbackDetails extends React.Component {
     //Clear selectedWorker from parent component
     this.props.resetCallback();
     this.closeDialog();
-  }
+  };
 
   closeDialog = () => {
     Actions.invokeAction("SetComponentState", {
@@ -74,53 +72,57 @@ class CallbackDetails extends React.Component {
     if (this.props.callback && this.props.callback !== prevProps.callback) {
       const callback = this.props.callback;
       this.setState({
-        workerSid: callback.workerSid || '',
-        workerName: callback.workerName || '',
-        id:callback.id || '',
-        firstName: callback.firstName ||'',
-        lastName: callback.lastName||'',
-        phoneNumber: callback.phoneNumber||'',
-        date: callback.date||'',
-        time: callback.time||'',
-        notes: callback.notes||'',
-        autoDial: callback.autoDial||'',
-        routeToQueue: callback.routeToQueue||'',
+        workerSid: callback.workerSid || "",
+        workerName: callback.workerName || "",
+        id: callback.id || "",
+        firstName: callback.firstName || "",
+        lastName: callback.lastName || "",
+        phoneNumber: callback.phoneNumber || "",
+        date: callback.date || "",
+        time: callback.time || "",
+        notes: callback.notes || "",
+        autoDial: callback.autoDial || "",
+        routeToQueue: callback.routeToQueue || "",
         changed: false,
-        isPhoneNumberValid: this.checkPhoneNumberIsValid(callback.phone_number)
-      })
+        isPhoneNumberValid: this.checkPhoneNumberIsValid(callback.phone_number),
+      });
     }
   }
 
-  handleChange = e => {
-    console.log('change event ', e.target, e.target.id);
-    const value = e.target.type === "checkbox"? e.target.checked : e.target.value;
+  handleChange = (e) => {
+    console.log("change event ", e.target, e.target.id);
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
     //Text Field id needs to match State property
     const id = e.target.id;
     let newState = { changed: true };
     newState[id] = value;
     this.setState(newState);
-   console.log(this.state);
-  }
+    console.log(this.state);
+  };
 
-  handlePhoneNumberChange = e => {
+  handlePhoneNumberChange = (e) => {
     const isValid = this.checkPhoneNumberIsValid(e.target.value);
     let newState = { changed: true };
     newState["isPhoneNumberValid"] = isValid;
     this.setState(newState);
     this.handleChange(e);
-  }
+  };
 
-  checkPhoneNumberIsValid = value => {
-    try{
-    const phoneUtil = PhoneNumberUtil.getInstance();
-    return phoneUtil.isValidNumberForRegion(phoneUtil.parse(value, 'US'), 'US');
+  checkPhoneNumberIsValid = (value) => {
+    try {
+      const phoneUtil = PhoneNumberUtil.getInstance();
+      return phoneUtil.isValidNumberForRegion(
+        phoneUtil.parse(value, "US"),
+        "US"
+      );
     } catch (e) {
       console.error(e);
     }
-  }
+  };
 
   saveCallBackDetails = async () => {
-    const callback =  {
+    const callback = {
       id: this.state.id,
       firstName: this.state.firstName,
       lastName: this.state.lastName,
@@ -131,27 +133,27 @@ class CallbackDetails extends React.Component {
       routeToQueue: this.state.routeToQueue,
       autoDial: this.state.autoDial,
       workerSid: this.state.workerSid,
-      workerName: this.state.workerName
+      workerName: this.state.workerName,
     };
 
-    if(this.props.isNew) {
+    if (this.props.isNew) {
       console.log("saving...");
       const newId = await addScheduledCallback(callback);
       const updated = {
         ...callback,
-        id: newId[0].Id
+        id: newId[0].Id,
       };
 
       this.props.addCallback(updated);
     } else {
-      const updated = await updateScheduledCallback( callback);
-      if(updated) {
+      const updated = await updateScheduledCallback(callback);
+      if (updated) {
         this.props.updateCallback(updated);
       }
     }
 
     this.closeDialog();
-  }
+  };
 
   render() {
     const { isOpen, callback, theme } = this.props;
@@ -165,28 +167,17 @@ class CallbackDetails extends React.Component {
       notes,
       routeToQueue,
       autoDial,
-      isPhoneNumberValid
+      isPhoneNumberValid,
     } = this.state;
     return (
       <SidePanel
         displayName="CallbackDetailsPanel"
-        // className="agentAttrPanel"
         title={<div>Callback Details</div>}
         isHidden={!isOpen}
         handleCloseClick={this.handleClose}
       >
         <Container vertical>
-          {/* <Caption>
-    Agent: {worker?.attributes?.full_name || "Agent"}
-  </Caption> */}
-
           <Table>
-            {/* <TableHead>
-      <TableRow>
-        <StyledTableCell> Attribute </StyledTableCell>
-        <TableCell> Value </TableCell>
-      </TableRow>
-    </TableHead> */}
             <TableBody>
               <TableRow key="firstName">
                 <StyledTableCell>
@@ -235,12 +226,6 @@ class CallbackDetails extends React.Component {
                     name="s_date"
                     value={date}
                     onChange={this.handleChange}
-                    //  onChange={(evt) => {
-                    //    console.log(evt.target.value);
-                    //   return  formatReturnDate(evt.target.value, "MM/dd/yyyy")
-
-                    //  }
-                    // }
                     required
                   />
                 </TableCell>
@@ -250,7 +235,12 @@ class CallbackDetails extends React.Component {
                   <StyledFieldName>Time</StyledFieldName>
                 </StyledTableCell>
                 <TableCell>
-                  <TimePicker required id="time" value={time}  onChange={this.handleChange}/>
+                  <TimePicker
+                    required
+                    id="time"
+                    value={time}
+                    onChange={this.handleChange}
+                  />
                 </TableCell>
               </TableRow>
               <TableRow key="notes">
@@ -288,7 +278,7 @@ class CallbackDetails extends React.Component {
                     Route to Queue (Agent Unvailable){" "}
                   </StyledFieldName>
                 </StyledTableCell>
-                <TableCell> 
+                <TableCell>
                   <Checkbox
                     id="routeToQueue"
                     checked={routeToQueue}
@@ -302,7 +292,7 @@ class CallbackDetails extends React.Component {
             <Button
               id="saveButton"
               onClick={this.saveCallBackDetails}
-              //   themeOverride={theme.CallbackDetails.SaveButton}
+              //themeOverride={theme.CallbackDetails.SaveButton}
               roundCorners={false}
               disabled={!changed}
             >
@@ -322,7 +312,7 @@ const mapStateToProps = (state) => {
   const isNew = dialogState && dialogState.isNew;
   return {
     isOpen,
-    isNew
+    isNew,
   };
 };
 

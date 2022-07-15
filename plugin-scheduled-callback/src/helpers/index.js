@@ -52,7 +52,6 @@ let  get  = async(manager, path) => {
 
   const { REACT_APP_SERVICE_URL } = process.env;
   const url =  `http://${REACT_APP_SERVICE_URL}/${path}`
-      //body: new URLSearchParams(fetchBody),
   const fetchOptions = {
     method: 'GET',
     headers: {
@@ -90,7 +89,6 @@ let remove = async (manager, path, errorNotification) => {
     );
      return await resp.json();
   } catch (e) {
-    ///notifications.error(errorNotification);
     throw e;
   }
 };
@@ -127,7 +125,6 @@ let remove = async (manager, path, errorNotification) => {
       );
       return await resp.json();
     } catch (e) {
-      ///notifications.error(errorNotification);
       throw e;
     }
   };
