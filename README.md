@@ -54,7 +54,7 @@ You will need a SQL database to for this application. If you are running SQL Ser
 USE master;
 GO
 
-CREATE DATABASE callback; -- change this to whatever database name you desire
+CREATE DATABASE CallbackScheduler; -- change this to whatever database name you desire
 GO
 ```
 
