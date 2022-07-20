@@ -67,7 +67,7 @@ class CallbackList extends React.Component {
       date: "",
       time: "",
       notes: "",
-      auto_dial: false,
+      autoDial: false,
       routeToQueue: false,
       changed: false,
       isPhoneNumberValid: false,

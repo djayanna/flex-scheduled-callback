@@ -7,6 +7,9 @@ import CallbackComponent from "./components/Callback/Callback";
 import CallbackList from "./components/CallbackList/CallbackList.Container";
 import CallbackSchedulerLink from "./components/CallbackList/CallbackSchedulerLink";
 const PLUGIN_NAME = "CallbackPlugin";
+import PhoneCallbackIcon from '@material-ui/icons/PhoneCallback';
+import {autoAcceptReservation} from './config'
+import * as util from "./helpers";
 
 export default class CallbackPlugin extends FlexPlugin {
   constructor() {
@@ -53,13 +56,68 @@ export default class CallbackPlugin extends FlexPlugin {
       if: (props) => props.task.attributes.callback,
     });
 
-    flex.Actions.replaceAction("AcceptTask", async (payload, original) => {
-      if (payload.task.attributes.callback) {
-        // no op
-      } else {
-        original(payload);
+    const channelDefinition = flex.DefaultTaskChannels.createDefaultTaskChannel(
+      'callback',
+      (task) => {
+        const { type } = task.attributes;
+        return task.taskChannelUniqueName === 'voice' && type === 'callback';
+      },
+      'CallbackIcon',
+      'CallbackIcon',
+      'palegreen',
+    );
+  
+    const { templates } = channelDefinition;
+    const CallbackChannel = {
+      ...channelDefinition,
+      templates: {
+        ...templates,
+        TaskListItem: {
+          ...templates?.TaskListItem,
+          firstLine: (task) => `${task.queueName}: ${task.attributes.callback.name}`
+        },
+        TaskCanvasHeader: {
+          ...templates?.TaskCanvasHeader,
+          title: (task) => `${task.queueName}: ${task.attributes.callback.name}`
+        },
+        IncomingTaskCanvas: {
+          ...templates?.IncomingTaskCanvas,
+          firstLine: (task) => task.queueName
+        }
+      },
+      icons: {
+        active: <PhoneCallbackIcon key="active-callback-icon" />,
+        list: <PhoneCallbackIcon key="list-callback-icon" />,
+        main: <PhoneCallbackIcon key="main-callback-icon" />,
       }
-    });
+    }
+  
+    // Register Channel
+    flex.TaskChannels.register(CallbackChannel);
+
+    /// TODO: before accept task - abort, if task === callback 
+    /// note - this will throw error in console
+    ///      - after accept will not fire.
+
+    flex.Actions.addListener("beforeAcceptTask", (payload, abortFunction) => {
+
+      const {task} = payload;
+
+     if (task.attributes.callback) {
+
+      if(!autoAcceptReservation()) {
+       
+       payload.wrap();
+      }
+
+      abortFunction();
+    } 
+  });
+
+
+
+
+    
   }
 
   /**
@@ -70,6 +128,8 @@ export default class CallbackPlugin extends FlexPlugin {
   registerListeners(manager) {
     listeners.reservationCreatedListener(manager);
   }
+
+
 
   /**
    * Registers the plugin reducers

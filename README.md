@@ -70,6 +70,24 @@ node tasks/initializedb.js
 
 1. Run `npm start` to start the development server
 
+### Task Router Workflow 
+
+1. Create the "ScheduledCallback" workflow
+
+  - Navigate to the workflow section in TaskRouter section of console
+  - Click + to add a new workflow
+  - Workflow name set to `ScheduledCallback`
+  - Add a filter `Known Agent  with fall back to Everyone queue`
+    - Click create a new filter
+    - Click unamed filter to rename to `Known Agent  with fall back to Everyone queue`
+    - Matching Tasks = `type == 'callback' && callback.routeToQueue == 'true'`
+    - Task Queue = `Everyone`
+    - Skip timeout = `workers.available == 0`
+    - Timeout = `3600`
+    - Known Worker, Select the radio button `Worker SID`, then enter the following expression `task.callback.workerSid`
+    - Within the direct call to agent click `Add a Step`
+    - In the second step, Task Queue = `Everyone`, All other setting can stay default
+
 ### Start the CRON Job
 
 1. Change directory to `server/service`.
@@ -88,7 +106,7 @@ SQL_ENCRYPT=false
 ACCOUNT_SID=AC...
 AUTH_TOKEN=
 WORKSPACE_SID=WS...
-CALLBACK_WORKFLOW_SID=WW...
+CALLBACK_WORKFLOW_SID=WW... # workflow sid created in the previous step
 ```
 
 4. Run `node cron-callback-schedule.js`

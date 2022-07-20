@@ -42,7 +42,7 @@ const INITIAL_STATE = {
   date: "",
   time: "",
   notes: "",
-  auto_dial: false,
+  autoDial: false,
   routeToQueue: false,
   changed: false,
   isPhoneNumberValid: false,
@@ -52,6 +52,7 @@ class CallbackDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = INITIAL_STATE;
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleClose = () => {
