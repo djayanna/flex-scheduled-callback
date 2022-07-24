@@ -1,7 +1,14 @@
 import * as Flex from '@twilio/flex-ui';
 
-export function startOutboundCall(number, taskAttributes)
+export function startOutboundCall(number, callbackTask)
 {
+  const taskAttributes = {
+    type: "outbound_callback",
+    callbackTaskSid: callbackTask.sid,
+    callback_id: callbackTask.attributes?.callback?.id,
+    conversations: {conversation_id: callbackTask.sid}
+  };
+
   Flex.Actions.invokeAction("StartOutboundCall", { destination: number , taskAttributes: taskAttributes});
 }
 

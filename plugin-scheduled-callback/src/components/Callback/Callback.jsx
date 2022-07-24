@@ -67,7 +67,7 @@ const Callback = (props) => {
           style={styles.cbButton}
           variant='contained'
           color='primary'
-          onClick={e => util.startOutboundCall(props.task.attributes.callback.phoneNumber, { type: "outbound_callback", callbackTaskSid: props.task.sid, callback_id: props.task.attributes.callback.id })}
+          onClick={e => util.startOutboundCall(props.task.attributes.callback.phoneNumber, props.task)}
         >
            Call ( {props.task.attributes.callback.phoneNumber} )
         </Button> }

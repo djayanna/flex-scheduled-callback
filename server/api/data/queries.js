@@ -114,7 +114,6 @@ const getCallbacks = async (workerSid) => {
     routeToQueue,
     workerSid
   }) => {
-
     await getConnection();
     var request = new sql.Request();
     request.input("id", sql.UniqueIdentifier, id);
@@ -129,8 +128,8 @@ const getCallbacks = async (workerSid) => {
         .format()
     );
     request.input("notes", sql.NVarChar(1000), notes);
-    request.input("autoDial", sql.Bit, autoDial);
-    request.input("routeToQueue", sql.Bit, routeToQueue);
+    request.input("autoDial", sql.Bit, autoDial === "false"? 0 : 1);
+    request.input("routeToQueue", sql.Bit, routeToQueue === "false"? 0 : 1);
     request.input("workerSid", sql.NVarChar(50), workerSid);
 
     const rs = await request.query(

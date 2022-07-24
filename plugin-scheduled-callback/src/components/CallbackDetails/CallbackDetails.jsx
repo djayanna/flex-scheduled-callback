@@ -82,8 +82,8 @@ class CallbackDetails extends React.Component {
         date: callback.date || "",
         time: callback.time || "",
         notes: callback.notes || "",
-        autoDial: callback.autoDial || "",
-        routeToQueue: callback.routeToQueue || "",
+        autoDial: callback.autoDial || false,
+        routeToQueue: callback.routeToQueue || false,
         changed: false,
         isPhoneNumberValid: this.checkPhoneNumberIsValid(callback.phone_number),
       });
@@ -132,7 +132,7 @@ class CallbackDetails extends React.Component {
       time: this.state.time,
       notes: this.state.notes,
       routeToQueue: this.state.routeToQueue,
-      autoDial: this.state.autoDial,
+      autoDial: this.state.autoDial ,
       workerSid: this.state.workerSid,
       workerName: this.state.workerName,
     };

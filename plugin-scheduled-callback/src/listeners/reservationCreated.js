@@ -14,13 +14,7 @@ export default function reservationCreated(manager) {
         const { task } = payload;
         if (task.attributes.callback && task.attributes.callback?.autoDial) {
           const number = task.attributes.callback.phoneNumber;
-
-          const callback_id = task.attributes.callback.id;
-          util.startOutboundCall(number, {
-            type: "outbound_callback",
-            callbackTaskSid: task.sid,
-            callback_id,
-          });
+          util.startOutboundCall(number, task);
         }
       });
 

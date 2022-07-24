@@ -1,6 +1,6 @@
 export const autoAcceptReservation = () => {
 
-    const autoAccept = process.env.FLEX_APP_AUTO_ACCEPT;
+    // const autoAccept = process.env.FLEX_APP_AUTO_ACCEPT;
 
-    return autoAccept || true;
+    return false;
 }
