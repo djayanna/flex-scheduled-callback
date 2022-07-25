@@ -54,7 +54,7 @@ const createTask = async (data) => {
                         name: `${data.FirstName} ${data.LastName}`, 
                         phoneNumber: data.PhoneNumber,
                         date: data.Date, 
-                        notes: data.notes,
+                        notes: data.Notes,
                         autoDial: data.AutoDial,
                         routeToQueue: data.RouteToQueue,
                         workerSid: data.WorkerSid

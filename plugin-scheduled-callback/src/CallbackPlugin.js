@@ -27,7 +27,7 @@ export default class CallbackPlugin extends FlexPlugin {
     this.registerReducers(manager);
 
     // Registering action listeners
-    this.registerListeners(manager);
+    this.registerListeners(flex, manager);
 
     flex.SideNav.Content.add(
       <CallbackSchedulerLink key="callback-scheduler-sidenav-button" />,
@@ -80,10 +80,10 @@ export default class CallbackPlugin extends FlexPlugin {
           ...templates?.TaskCanvasHeader,
           title: (task) => `${task.queueName}: ${task.attributes.callback.name}`
         },
-        IncomingTaskCanvas: {
-          ...templates?.IncomingTaskCanvas,
-          firstLine: (task) => task.queueName
-        }
+        // IncomingTaskCanvas: {
+        //   ...templates?.IncomingTaskCanvas,
+        //   firstLine: (task) => task.queueName
+        // }
       },
       icons: {
         active: <PhoneCallbackIcon key="active-callback-icon" />,
@@ -94,11 +94,18 @@ export default class CallbackPlugin extends FlexPlugin {
   
     // Register Channel
     flex.TaskChannels.register(CallbackChannel);
+    
+  }
 
-    /// TODO: before accept task - abort, if task === callback 
-    /// note - this will throw error in console
-    ///      - after accept will not fire.
+  /**
+   * Registers the listeners
+   *
+   * @param manager { import('@twilio/flex-ui').Manager }
+   */
+  registerListeners(flex, manager) {
+    listeners.reservationCreatedListener(manager);
 
+    // todo: add note
     flex.Actions.addListener("beforeAcceptTask", (payload, abortFunction) => {
 
       const {task} = payload;
@@ -112,21 +119,7 @@ export default class CallbackPlugin extends FlexPlugin {
 
       abortFunction();
     } 
-  });
-
-
-
-
-    
-  }
-
-  /**
-   * Registers the listeners
-   *
-   * @param manager { import('@twilio/flex-ui').Manager }
-   */
-  registerListeners(manager) {
-    listeners.reservationCreatedListener(manager);
+  }); 
   }
 
 

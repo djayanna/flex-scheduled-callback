@@ -6,7 +6,7 @@ const config = require("../config");
 router.post("/", async (req, res) => {
   try {
 
-    //console.log(req);
+    console.log(req.body[0].data);
     // const twilioSignature = req.headers["x-twilio-signature"];
     // const url = "http://f68c-71-121-233-24.ngrok.io/events"; // req.protocol + "://" + req.get("host") + req.originalUrl;
     // console.log("url", url);
