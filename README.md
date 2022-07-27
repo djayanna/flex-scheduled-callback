@@ -68,7 +68,19 @@ node tasks/initializedb.js
 
 ### Run the Local Web API
 
-1. Run `npm start` to start the development server
+
+1. Change directory to `server/api`
+2. Run `npm start` to start the development server. (Note: The default PORT=3000. A custom PORT can be specified in .env file)
+3. Open new Terminal window and run `ngrok http http://localhost:3000`. Note the Forwarding ngrok URL/sub-domain returned. We will require this for setting up Event Streams Webhook sink.
+
+### Event Streams 
+
+1. Create a new Event Streams sink, type webhook. 
+2. Enter ngrok domain `https://<subdomain>.ngrok.io/events`
+3. Create event streams subscription for taskrouter (v2) events
+    - reservation.accepted
+
+
 
 ### Task Router Workflow 
 
