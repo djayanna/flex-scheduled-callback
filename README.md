@@ -1,5 +1,8 @@
 # Scheduled Callback Solution for Twilio Flex 
 
+
+![Sequence Diagram](./images/sequence_diagram.png)
+
 Built using:
 * [Node.js](https://nodejs.org/en/)
 * [Express](https://expressjs.com/)

@@ -105,7 +105,6 @@ export default class CallbackPlugin extends FlexPlugin {
   registerListeners(flex, manager) {
     listeners.reservationCreatedListener(manager);
 
-    // todo: add note
     flex.Actions.addListener("beforeAcceptTask", (payload, abortFunction) => {
 
       const {task} = payload;
