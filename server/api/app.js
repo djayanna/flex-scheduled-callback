@@ -29,6 +29,8 @@ app.use('/callback', callbackRouter);
 app.use('/events', eventsRouter);
 app.use('/task', taskRouter);
 
+app.use('/conversations', (req, res) => console.log(req));
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

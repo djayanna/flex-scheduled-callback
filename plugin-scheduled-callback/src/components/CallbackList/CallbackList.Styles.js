@@ -1,5 +1,5 @@
 
-import styled from 'react-emotion';
+import { styled } from "@twilio-paste/styling-library";
 import { TableCell, TextField } from "@material-ui/core";
 export const TableHeaderCell = styled(TableCell)`
   height: 60px;

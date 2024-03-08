@@ -1,4 +1,4 @@
-import styled from 'react-emotion';
+import { styled } from "@twilio-paste/styling-library";
 import { FlexBox } from '@twilio/flex-ui';
 import { TableCell, TextField } from "@material-ui/core";
 

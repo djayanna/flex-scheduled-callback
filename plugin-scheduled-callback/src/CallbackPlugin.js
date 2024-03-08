@@ -10,6 +10,8 @@ const PLUGIN_NAME = "CallbackPlugin";
 import PhoneCallbackIcon from '@material-ui/icons/PhoneCallback';
 import {autoAcceptReservation} from './config'
 import * as util from "./helpers";
+import { CustomizationProvider } from "@twilio-paste/core/customization";
+import { StylesProvider, createGenerateClassName } from '@material-ui/core/styles';
 
 export default class CallbackPlugin extends FlexPlugin {
   constructor() {
@@ -28,6 +30,22 @@ export default class CallbackPlugin extends FlexPlugin {
 
     // Registering action listeners
     this.registerListeners(flex, manager);
+
+       // include this in the init method
+
+       flex.setProviders({
+        CustomProvider: (RootComponent) => (props) => {
+          return (
+            <StylesProvider generateClassName={createGenerateClassName({
+              productionPrefix: PLUGIN_NAME,
+              seed: PLUGIN_NAME
+            })}>
+                <RootComponent {...props} />
+              </StylesProvider>
+          );
+        },
+        PasteThemeProvider: CustomizationProvider
+      });
 
     flex.SideNav.Content.add(
       <CallbackSchedulerLink key="callback-scheduler-sidenav-button" />,

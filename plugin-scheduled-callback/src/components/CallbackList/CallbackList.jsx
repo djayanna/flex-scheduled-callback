@@ -91,7 +91,8 @@ class CallbackList extends React.Component {
 <div><Button  size='small' variant="outlined" onClick={this.addNew}> Add New</Button></div></FlexBox>
 
             <FlexBox horizontal noGrow >
-              <FlexBox noGrow>
+              <FlexBox>
+              <TableContainer>
               <Table>
                 <TableHead>
                   <TableRow>
@@ -136,6 +137,7 @@ class CallbackList extends React.Component {
                     </TableRow>))} 
                 </TableBody>
               </Table>
+              </TableContainer>
               </FlexBox>
               <FlexBox>
               <CallbackDetails key="callback-details" callback={this.state.selectedCallback} resetCallback={this.resetCallback} />

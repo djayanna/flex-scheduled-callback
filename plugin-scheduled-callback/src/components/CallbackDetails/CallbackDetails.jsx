@@ -7,7 +7,7 @@ import {
   SidePanel,
   FlexBox,
 } from "@twilio/flex-ui";
-import { Button } from "@twilio/flex-ui-core";
+import { Button } from "@twilio/flex-ui";
 import { DatePicker, formatReturnDate } from "@twilio-paste/core/date-picker";
 import { TimePicker } from "@twilio-paste/core/time-picker";
 import { PhoneNumberUtil, PhoneNumberFormat } from "google-libphonenumber";
@@ -118,7 +118,7 @@ class CallbackDetails extends React.Component {
         "US"
       );
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
   };
 
@@ -132,7 +132,7 @@ class CallbackDetails extends React.Component {
       time: this.state.time,
       notes: this.state.notes,
       routeToQueue: this.state.routeToQueue,
-      autoDial: this.state.autoDial ,
+      autoDial: this.state.autoDial,
       workerSid: this.state.workerSid,
       workerName: this.state.workerName,
     };
@@ -253,7 +253,7 @@ class CallbackDetails extends React.Component {
                   <TextField
                     id="notes"
                     multiline
-                    rows={4}
+                    minrows={4}
                     value={notes}
                     onChange={this.handleChange}
                     variant="standard"

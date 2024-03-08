@@ -31,7 +31,7 @@ const getCallbacks = async (workerSid) => {
 
     return rs;
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
 
